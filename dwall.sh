@@ -68,7 +68,7 @@ case "$OSTYPE" in
 				SETTER="pcmanfm --set-wallpaper";
             elif [[ "$DESKTOP_SESSION" =~ ^(/usr/share/xsessions/plasma|NEON|Neon|neon|PLASMA|Plasma|plasma|KDE|Kde|kde)$ ]]; then 
 				SETTER=setkde;
-			elif [[ "$DESKTOP_SESSION" =~ ^(PANTHEON|Pantheon|pantheon|GNOME|Gnome|gnome|Gnome-xorg|gnome-xorg|UBUNTU|Ubuntu|ubuntu|DEEPIN|Deepin|deepin|POP|Pop|pop)$ ]]; then 
+			elif [[ "$DESKTOP_SESSION" =~ ^(PANTHEON|Pantheon|pantheon|GNOME|Gnome|gnome|Gnome-xorg|gnome-xorg|UBUNTU|Ubuntu|ubuntu|DEEPIN|Deepin|deepin|POP|Pop|pop|budgie-desktop)$ ]]; then 
 				SETTER="gsettings set org.gnome.desktop.background picture-uri";
 			else 
 				SETTER="feh --bg-scale"; 
@@ -85,7 +85,7 @@ case "$OSTYPE" in
 				SETTER="pcmanfm --set-wallpaper";
             elif [[ "$DESKTOP_SESSION" =~ ^(/usr/share/xsessions/plasma|NEON|Neon|neon|PLASMA|Plasma|plasma|KDE|Kde|kde)$ ]]; then 
 				SETTER=setkde;
-			elif [[ "$DESKTOP_SESSION" =~ ^(PANTHEON|Pantheon|pantheon|GNOME|Gnome|gnome|Gnome-xorg|gnome-xorg|UBUNTU|Ubuntu|ubuntu|DEEPIN|Deepin|deepin|POP|Pop|pop)$ ]]; then 
+			elif [[ "$DESKTOP_SESSION" =~ ^(PANTHEON|Pantheon|pantheon|GNOME|Gnome|gnome|Gnome-xorg|gnome-xorg|UBUNTU|Ubuntu|ubuntu|DEEPIN|Deepin|deepin|POP|Pop|pop|budgie-desktop)$ ]]; then 
 				SETTER="gsettings set org.gnome.desktop.background picture-uri";
 			else 
 				SETTER="feh --bg-scale"; 
@@ -107,6 +107,9 @@ set_wallpaper() {
   fi
   if [ $FORMAT ]; then
 		$SETTER "$image.$FORMAT"
+		if [[ "$DESKTOP_SESSION" =~ ^(PANTHEON|Pantheon|pantheon|GNOME|Gnome|gnome|Gnome-xorg|gnome-xorg|UBUNTU|Ubuntu|ubuntu|DEEPIN|Deepin|deepin|POP|Pop|pop|budgie-desktop)$ ]]; then
+			$SETTER "'file:///$image.$FORMAT'"
+		fi
 		return;
   fi
 }
